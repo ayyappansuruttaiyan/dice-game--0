@@ -1,9 +1,10 @@
 const btnRoll0El = document.getElementById("player--0");
 const btnRoll1El = document.getElementById("player--1");
-const btnReset = document.querySelector(".btn--reset");
+const btnResetEl = document.querySelector(".btn--reset");
 const score0El = document.querySelector(".score--0");
 const score1El = document.querySelector(".score--1");
 const diceEl = document.querySelector(".dice-img");
+const titleEl = document.querySelector(".title");
 const winnerBoardEl = document.querySelector(".winner-board");
 // game initial stage
 let score = [0, 0];
@@ -18,18 +19,18 @@ const player = () => {
 const choosePlayer = player();
 console.log(choosePlayer);
 if (choosePlayer === 1) {
+  titleEl.textContent = `Player-${choosePlayer} to Play`;
   btnRoll0El.disabled = false;
   btnRoll1El.disabled = true;
   btnRoll0El.classList.add("player--active");
   btnRoll1El.classList.remove("player--active");
 } else {
+  titleEl.textContent = `Player-${choosePlayer} to Play`;
   btnRoll0El.disabled = true;
   btnRoll1El.disabled = false;
   btnRoll0El.classList.remove("player--active");
   btnRoll1El.classList.add("player--active");
 }
-
-// const toggle = document.btnRoll0El.toggle();
 
 // player 1 roll button functionality
 btnRoll0El.addEventListener("click", function () {
@@ -44,14 +45,20 @@ btnRoll0El.addEventListener("click", function () {
   btnRoll1El.disabled = false;
   btnRoll0El.classList.remove("player--active");
   btnRoll1El.classList.add("player--active");
+  titleEl.textContent = "Player-2 to play";
   if (score[0] >= 30) {
     winnerBoardEl.textContent = "Player 1 Wins";
     winnerBoardEl.classList.remove("hidden");
     diceEl.classList.add("hidden");
     btnRoll0El.classList.add("player--active");
+    btnRoll0El.classList.remove("player--active");
     btnRoll1El.classList.remove("player--active");
     btnRoll0El.disabled = true;
     btnRoll1El.disabled = true;
+    titleEl.textContent = "";
+    btnResetEl.disabled = false;
+  } else {
+    btnResetEl.disabled = true;
   }
 });
 
@@ -64,23 +71,29 @@ btnRoll1El.addEventListener("click", function () {
   score[1] = score[1] + dice;
   score1El.textContent = score[1];
   diceEl.classList.remove("hidden");
+
   btnRoll0El.disabled = false;
   btnRoll1El.disabled = true;
   btnRoll0El.classList.add("player--active");
   btnRoll1El.classList.remove("player--active");
+  titleEl.textContent = "Player-1 to play";
   if (score[1] >= 30) {
     winnerBoardEl.textContent = "Player 2 Wins";
     winnerBoardEl.classList.remove("hidden");
     diceEl.classList.add("hidden");
     btnRoll0El.classList.remove("player--active");
-    btnRoll1El.classList.add("player--active");
+    btnRoll1El.classList.remove("player--active");
     btnRoll0El.disabled = true;
     btnRoll1El.disabled = true;
+    titleEl.textContent = "";
+    btnResetEl.disabled = false;
+  } else {
+    btnResetEl.disabled = true;
   }
 });
 
 // reset button functionality
-btnReset.addEventListener("click", function () {
+btnResetEl.addEventListener("click", function () {
   score0El.textContent = 0;
   score1El.textContent = 0;
   score = [0, 0];
@@ -94,11 +107,13 @@ btnReset.addEventListener("click", function () {
   const choosePlayer = player();
   console.log(choosePlayer);
   if (choosePlayer === 1) {
+    titleEl.textContent = `Player-${choosePlayer} to Play`;
     btnRoll0El.disabled = false;
     btnRoll1El.disabled = true;
     btnRoll0El.classList.add("player--active");
     btnRoll1El.classList.remove("player--active");
   } else {
+    titleEl.textContent = `Player-${choosePlayer} to Play`;
     btnRoll0El.disabled = true;
     btnRoll1El.disabled = false;
     btnRoll0El.classList.remove("player--active");
